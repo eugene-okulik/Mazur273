@@ -4,7 +4,7 @@ print(my_dict['tuple'][-1])
 my_dict['list'].append(42)
 my_dict['list'].pop(1)
 # print(my_dict)  # проверка для себя что всё ок
-my_dict['dict']['i am a tuple'] = (1, 2)
+my_dict['dict'][('i am a tuple',)] = (1, 2)
 my_dict['dict'].pop('2')
 # print(my_dict)  # проверка для себя что всё ок
 my_dict['set'].add('шесть')
