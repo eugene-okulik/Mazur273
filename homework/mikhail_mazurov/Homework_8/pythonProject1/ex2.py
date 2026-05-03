@@ -1,6 +1,5 @@
-
 goals = [5, 200, 1000, 10000]  # заменил 100к на 10к, т.к была ошибка "Exceeds the limit
-                               # (4300 digits) for integer string conversion;"
+# (4300 digits) for integer string conversion;"
 res = []
 
 
