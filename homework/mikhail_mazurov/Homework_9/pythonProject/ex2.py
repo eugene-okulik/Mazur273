@@ -2,7 +2,7 @@ temperatures = [20, 15, 32, 34, 21, 19, 25, 27, 30, 32, 34, 30, 29, 25, 27, 22, 
                 30, 28, 24, 23]
 
 
-hot_days_filter = filter(lambda x : x > 28, temperatures)
+hot_days_filter = filter(lambda x: x > 28, temperatures)
 new_list_hot_days_filter = list(hot_days_filter)
 
 
