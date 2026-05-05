@@ -19,7 +19,6 @@ def my_rules(func):
     return wrapper
 
 
-
 @my_rules
 def calc(first, second, operation):
     if operation == '+':

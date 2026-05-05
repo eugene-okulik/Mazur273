@@ -16,4 +16,3 @@ new_dict = dict(zip(list_of_subj, list_of_price2))
 # print(list_of_price)
 # print(list_of_price2)
 print(new_dict)
-
