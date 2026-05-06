@@ -2,8 +2,8 @@
 
 def repeat_me(func):
     def wrapper(string, count):
-        result = print(f'{string}\n' * count, )
-        return result
+        for i in range(count):
+            func(string)
     return wrapper
 
 
@@ -22,7 +22,7 @@ def repeat_me2(count):
     def second_level(func):
         def wrapper(string):
             for i in range(count):
-                print(string)
+                func(string)
         return wrapper
     return second_level
 
