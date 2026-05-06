@@ -18,4 +18,3 @@ new_dict = dict(zip(PRICE_LIST.split()[::2], map(lambda x: int(x[:-1]), PRICE_LI
 # print(list_of_price)
 # print(list_of_price2)
 print(new_dict)
-
