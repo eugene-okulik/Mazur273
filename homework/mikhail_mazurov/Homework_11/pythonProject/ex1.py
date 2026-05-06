@@ -32,6 +32,7 @@ for book in books:
 
 class SchoolBooks(Book):
     with_exercise = True
+
     def __init__(self, title, author, page_numbers, ISBN, subject, group):
         super().__init__(title, author, page_numbers, ISBN)
         self.subject = subject
