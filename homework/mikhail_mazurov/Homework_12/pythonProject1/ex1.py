@@ -1,4 +1,5 @@
-import datetime, json
+import datetime
+import json
 
 
 def read_file(filename):
@@ -18,6 +19,7 @@ class Flower:
         ).date()
         self.color = data.get('color')
         self.freshness = (datetime.date.today() - self.privoz).days
+
 
     def __repr__(self):
         return f'{self.__class__.__name__}(color={self.color}, freshness={self.freshness} дней)'
