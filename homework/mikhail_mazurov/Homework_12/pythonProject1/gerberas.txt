@@ -1,0 +1,1 @@
+{"Flower": "Gerberas", "privoz": "01/05/2026", "color": "yellow", "lifetime": 10}
