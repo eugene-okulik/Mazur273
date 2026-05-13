@@ -1,0 +1,75 @@
+-- Маленькое замечание к видео: OFFSET работает в MySQL, хотя и не выделяется как зарезервированное слово. Отработает так же как LIMIT 1, 1 
+
+INSERT INTO students (name, second_name, group_id) 
+VALUES ('Alexandr', 'Turinov', 2)
+
+-- SELECT * FROM students ORDER BY id DESC LIMIT 1 
+
+INSERT INTO books (title, taken_by_student_id) 
+VALUES ('Лучше плохо, чем никак', 22898)
+
+INSERT INTO books (title, taken_by_student_id) 
+VALUES ('Плохо уже есть, давай хорошо', 22898)
+
+INSERT INTO `groups` (title, start_date, end_date)
+VALUES ('тревожные сверхлюди', '14/05', '14/05') 
+
+UPDATE students SET group_id = 22771 
+WHERE id = 22898
+
+INSERT INTO subjects (title) 
+VALUES ('Стоицизм')
+
+INSERT INTO subjects (title) 
+VALUES ('Лежацизм')
+
+INSERT INTO lessons (title, subject_id)
+VALUES ('философия до', 22923) 
+
+INSERT INTO lessons (title, subject_id)
+VALUES ('ты променял нашу филосовскую жизнь', 22924) 
+
+INSERT INTO lessons (title, subject_id)
+VALUES ('на баб', 22924) 
+
+INSERT INTO marks (value, lesson_id, student_id)
+VALUES ('6/7', 76212, 22898) 
+
+INSERT INTO marks (value, lesson_id, student_id)
+VALUES ('9 3/4', 76213, 22898) 
+
+INSERT INTO marks (value, lesson_id, student_id)
+VALUES ('1418', 76214, 22898) 
+
+INSERT INTO marks (value, lesson_id, student_id)
+VALUES ('1312', 76215, 22898) 
+
+SELECT * 
+FROM marks m 
+WHERE m.student_id = 22898
+
+SELECT * 
+FROM books b  
+WHERE b.taken_by_student_id  = 22898
+
+SELECT s.second_name, s.name, g.title, b.title, m.value, l.title, sub.title
+FROM students s 
+JOIN `groups` g
+ON s.group_id = g.id
+JOIN books b
+ON s.id = b.taken_by_student_id 
+JOIN marks m 
+ON s.id = m.student_id 
+JOIN lessons l 
+ON m.lesson_id = l.id
+JOIN subjects sub
+ON l.subject_id = sub.id 
+WHERE s.id = 22898;
+
+
+
+
+
+
+
+
