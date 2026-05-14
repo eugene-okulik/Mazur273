@@ -1,7 +1,7 @@
 -- Маленькое замечание к видео: OFFSET работает в MySQL, хотя и не выделяется как зарезервированное слово. Отработает так же как LIMIT 1, 1 
 
 INSERT INTO students (name, second_name, group_id) 
-VALUES ('Alexandr', 'Turinov', 2)
+VALUES ('Alexandr', 'Turinov', NULL)
 
 -- SELECT * FROM students ORDER BY id DESC LIMIT 1 
 
