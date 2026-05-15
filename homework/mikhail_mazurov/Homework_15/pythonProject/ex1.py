@@ -12,18 +12,18 @@ db = mysql.connect(
 cursor = db.cursor(dictionary=True)
 
 new_student = '''
-    INSERT INTO students (name, second_name) 
+    INSERT INTO students (name, second_name)
     VALUES (%s, %s)
 '''
 cursor.execute(
     new_student,
-        ('Alexandr', 'Turinov')
+    ('Alexandr', 'Turinov')
 )
 student_id = cursor.lastrowid
 print(student_id)
 
 new_book1 = '''
-    INSERT INTO books (title, taken_by_student_id) 
+    INSERT INTO books (title, taken_by_student_id)
     VALUES (%s, %s)
 '''
 cursor.execute(new_book1, ('Лучше плохо, чем никак', student_id))
@@ -31,7 +31,7 @@ first_book_id = cursor.lastrowid
 print(first_book_id)
 
 new_book2 = '''
-    INSERT INTO books (title, taken_by_student_id) 
+    INSERT INTO books (title, taken_by_student_id)
     VALUES (%s, %s)
 '''
 cursor.execute(new_book1, ('Плохо, переделывай', student_id))
@@ -40,14 +40,14 @@ print(sec_book_id)
 
 new_group = '''
     INSERT INTO `groups` (title, start_date, end_date)
-    VALUES (%s, %s, %s) 
+    VALUES (%s, %s, %s)
 '''
 cursor.execute(new_group, ('тревожные сверхлюди', '15/05', '15/05'))
 new_group_id = cursor.lastrowid
 print(new_group_id)
 
 upd_stud_group = '''
-    UPDATE students 
+    UPDATE students
     SET group_id = %s
     WHERE id = %s
 '''
@@ -63,7 +63,7 @@ student_info = cursor.fetchone()
 print(student_info)  # смотрю что изменилась группа
 
 new_subj1 = '''
-    INSERT INTO subjects (title) 
+    INSERT INTO subjects (title)
     VALUES (%s)
 '''
 cursor.execute(new_subj1, ('Стоицизм',))
@@ -71,7 +71,7 @@ new_subj1_id = cursor.lastrowid
 print(new_subj1_id)
 
 new_subj2 = '''
-    INSERT INTO subjects (title) 
+    INSERT INTO subjects (title)
     VALUES (%s)
 '''
 cursor.execute(new_subj2, ('Лежацизм',))
@@ -143,24 +143,24 @@ mark_lesson2_2_id = cursor.lastrowid
 print(mark_lesson2_2_id)
 
 result = '''
-    SELECT 
+    SELECT
     s.second_name,
     s.name,
     g.title,
     b.title,
     m.value,
     l.title,
-    sub.title 
+    sub.title
 FROM students s
-JOIN `groups` g 
+JOIN `groups` g
     ON s.group_id = g.id
-JOIN books b 
+JOIN books b
     ON s.id = b.taken_by_student_id
-JOIN marks m 
+JOIN marks m
     ON s.id = m.student_id
-JOIN lessons l 
+JOIN lessons l
     ON m.lesson_id = l.id
-JOIN subjects sub 
+JOIN subjects sub
     ON l.subject_id = sub.id
 WHERE s.id = %s;
 '''
