@@ -22,21 +22,15 @@ cursor.execute(
 student_id = cursor.lastrowid
 print(student_id)
 
-new_book1 = '''
+new_books = '''
     INSERT INTO books (title, taken_by_student_id)
     VALUES (%s, %s)
 '''
-cursor.execute(new_book1, ('Лучше плохо, чем никак', student_id))
-first_book_id = cursor.lastrowid
-print(first_book_id)
-
-new_book2 = '''
-    INSERT INTO books (title, taken_by_student_id)
-    VALUES (%s, %s)
-'''
-cursor.execute(new_book1, ('Плохо, переделывай', student_id))
-sec_book_id = cursor.lastrowid
-print(sec_book_id)
+booklist = [
+    ('Лучше плохо, чем никак', student_id),
+    ('Плохо, переделывай', student_id)
+]
+cursor.executemany(new_books, booklist)
 
 new_group = '''
     INSERT INTO `groups` (title, start_date, end_date)
@@ -62,85 +56,48 @@ cursor.execute(get_student, (student_id,))
 student_info = cursor.fetchone()
 print(student_info)  # смотрю что изменилась группа
 
-new_subj1 = '''
+new_subs = '''
     INSERT INTO subjects (title)
     VALUES (%s)
 '''
-cursor.execute(new_subj1, ('Стоицизм',))
-new_subj1_id = cursor.lastrowid
-print(new_subj1_id)
+subjects_list = ['Стоицизм', 'Лежацизм']
+subject_ids = []
+for i in subjects_list:
+    cursor.execute(new_subs, (i,))
+    subject_ids.append(cursor.lastrowid)
+print(subject_ids)
 
-new_subj2 = '''
-    INSERT INTO subjects (title)
-    VALUES (%s)
-'''
-cursor.execute(new_subj2, ('Лежацизм',))
-new_subj2_id = cursor.lastrowid
-print(new_subj2_id)
-
-new_lesson1_1 = '''
+new_lessons = '''
     INSERT INTO lessons (title, subject_id)
     VALUES (%s, %s)
 '''
-cursor.execute(new_lesson1_1, ('Урок1Предмет1', new_subj1_id))
-new_lesson1_1_id = cursor.lastrowid
-print(new_lesson1_1_id)
 
-new_lesson1_2 = '''
-    INSERT INTO lessons (title, subject_id)
-    VALUES (%s, %s)
-'''
-cursor.execute(new_lesson1_2, ('Урок2Предмет1', new_subj1_id))
-new_lesson1_2_id = cursor.lastrowid
-print(new_lesson1_2_id)
+lessons_list = [
+    ('Урок1Предмет1', subject_ids[0]),
+    ('Урок2Предмет1', subject_ids[0]),
+    ('Урок1Предмет2', subject_ids[1]),
+    ('Урок2Предмет2', subject_ids[1]),
+]
 
-new_lesson2_1 = '''
-    INSERT INTO lessons (title, subject_id)
-    VALUES (%s, %s)
-'''
-cursor.execute(new_lesson2_1, ('Урок1Предмет2', new_subj2_id))
-new_lesson2_1_id = cursor.lastrowid
-print(new_lesson2_1_id)
+lesson_ids = []
+for lesson in lessons_list:
+    cursor.execute(new_lessons, lesson)
+    lesson_ids.append(cursor.lastrowid)
+print(lesson_ids)
 
-new_lesson2_2 = '''
-    INSERT INTO lessons (title, subject_id)
-    VALUES (%s, %s)
-'''
-cursor.execute(new_lesson2_2, ('Урок2Предмет2', new_subj2_id))
-new_lesson2_2_id = cursor.lastrowid
-print(new_lesson2_2_id)
-
-mark_lesson1_1 = '''
+marks = '''
     INSERT INTO marks (value, lesson_id, student_id)
     VALUES (%s, %s, %s)
 '''
-cursor.execute(mark_lesson1_1, ('1', new_lesson1_1_id, student_id))
-mark_lesson1_1_id = cursor.lastrowid
-print(mark_lesson1_1_id)
 
-mark_lesson1_2 = '''
-    INSERT INTO marks (value, lesson_id, student_id)
-    VALUES (%s, %s, %s)
-'''
-cursor.execute(mark_lesson1_2, ('2', new_lesson1_2_id, student_id))
-mark_lesson1_2_id = cursor.lastrowid
-print(mark_lesson1_2_id)
+marks_list = [
+    ('1', lesson_ids[0], student_id),
+    ('2', lesson_ids[1], student_id),
+    ('3', lesson_ids[2], student_id),
+    ('4', lesson_ids[3], student_id),
+]
 
-mark_lesson2_1 = '''
-    INSERT INTO marks (value, lesson_id, student_id)
-    VALUES (%s, %s, %s)
-'''
-cursor.execute(mark_lesson2_1, ('3', new_lesson2_1_id, student_id))
-mark_lesson2_1_id = cursor.lastrowid
-print(mark_lesson2_1_id)
-
-mark_lesson2_2 = '''
-    INSERT INTO marks (value, lesson_id, student_id)
-    VALUES (%s, %s, %s)
-'''
-cursor.execute(mark_lesson2_2, ('4', new_lesson2_2_id, student_id))
-mark_lesson2_2_id = cursor.lastrowid
-print(mark_lesson2_2_id)
+cursor.executemany(marks, marks_list)
 
 result = '''
     SELECT
