@@ -70,9 +70,8 @@ for row in new_data:
 
     cursor.execute(query, value)
     result = cursor.fetchall()
-    if result is None:
+    if len(result) == 0:  # спасибо, теперь работает корректно
         delta_data.append(row)
 
-print(delta_data)
-# самопроверка не прошла - мне выдает все 4 строки как уникальные. через ДБивер тоже не нашел в бр вторую строку
+print(delta_data)  # первый принт - все данныы из локального файла, второй - разница с бд
 db.close()
