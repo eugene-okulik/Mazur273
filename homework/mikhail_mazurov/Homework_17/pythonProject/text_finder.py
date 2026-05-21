@@ -3,8 +3,10 @@ import os
 
 
 def is_timestamp(line):
+    if len(line) < 19:
+        return False
+
     return (
-        len(line) >= 19 and
         line[4] == '-' and
         line[7] == '-' and
         line[10] == ' ' and
