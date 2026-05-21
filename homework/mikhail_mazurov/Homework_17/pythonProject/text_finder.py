@@ -5,14 +5,17 @@ import os
 def is_timestamp(line):
     if len(line) < 19:
         return False
-
-    return (
-        line[4] == '-' and
-        line[7] == '-' and
-        line[10] == ' ' and
-        line[13] == ':' and
-        line[16] == ':'
-    )
+    if line[4] != '-':
+        return False
+    if line[7] != '-':
+        return False
+    if line[10] != ' ':
+        return False
+    if line[13] != ':':
+        return False
+    if line[16] != ':':
+        return False
+    return True
 
 
 def parse_log(filepath):
