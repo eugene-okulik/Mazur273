@@ -36,6 +36,7 @@ def new_obj():
     print(f'новый объект создан, id {post_id}')
     return post_id
 
+
 new_obj()
 
 
