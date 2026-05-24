@@ -38,6 +38,7 @@ def new_obj():
 
 new_obj()
 
+
 def put_obj():
     post_id = new_obj()  # для нового теста создаем новый объект, вдруг старый удалили
     name = "Mikhail_UPD"
@@ -67,7 +68,7 @@ def patch_obj():
             }}
     response = requests.put(
         f'http://objapi.course.qa-practice.com/object/{post_id}',
-        json = data
+        json=data
     )
     assert response.status_code == 200, 'Объект не изменен'
     print(response.status_code)
