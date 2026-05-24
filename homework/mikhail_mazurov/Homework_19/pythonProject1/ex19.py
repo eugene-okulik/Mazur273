@@ -41,7 +41,7 @@ new_obj()
 
 
 def put_obj():
-    post_id = new_obj()  # для нового теста создаем новый объект, вдруг старый удалили
+    obj_id = new_obj()  # для нового теста создаем новый объект, вдруг старый удалили
     name = "Mikhail_UPD"
     data = {'name': name,
             'data': {
@@ -49,7 +49,7 @@ def put_obj():
                 'key2_upd': 'value2_upd',
             }}
     response = requests.put(
-        f'http://objapi.course.qa-practice.com/object/{post_id}',
+        f'http://objapi.course.qa-practice.com/object/{obj_id}',
         json=data
     )
     assert response.status_code == 200, 'Объект не изменен'
@@ -60,15 +60,15 @@ put_obj()
 
 
 def patch_obj():
-    post_id = new_obj()
+    obj_id = new_obj()
     name = "Mikhail_PATCH"
     data = {'name': name,
             'data': {
                 'key1_upd': 'value1_upd',
                 'key2_upd': 'value2_upd',
             }}
-    response = requests.put(
-        f'http://objapi.course.qa-practice.com/object/{post_id}',
+    response = requests.patch(
+        f'http://objapi.course.qa-practice.com/object/{obj_id}',
         json=data
     )
     assert response.status_code == 200, 'Объект не изменен'
@@ -79,10 +79,10 @@ patch_obj()
 
 
 def delete_obj():
-    post_id = new_obj()
-    response = requests.delete(f'http://objapi.course.qa-practice.com/object/{post_id}')
+    obj_id = new_obj()
+    response = requests.delete(f'http://objapi.course.qa-practice.com/object/{obj_id}')
     assert response.status_code == 200
-    print(f'объект с id {post_id} удален')
+    print(f'объект с id {obj_id} удален')
 
 
 delete_obj()
