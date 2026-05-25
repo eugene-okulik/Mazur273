@@ -63,6 +63,7 @@ def test_new_obj(names, print_before_and_after):
     obj_id = response.json()['id']
     print(f'новый объект создан, id {obj_id}')
 
+
 @pytest.mark.critical
 def test_put_obj(print_before_and_after, create_obj):
     obj_id = create_obj
@@ -78,6 +79,7 @@ def test_put_obj(print_before_and_after, create_obj):
     )
     assert response.status_code == 200, 'Объект не изменен'
     print(response.status_code)
+
 
 @pytest.mark.medium
 def test_patch_obj(create_obj):
