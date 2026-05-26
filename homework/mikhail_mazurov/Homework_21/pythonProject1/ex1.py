@@ -4,6 +4,7 @@ import requests
 import pytest
 import allure
 
+
 @allure.feature('Obj')
 @allure.story('Get obj')
 @allure.title('Получение всех объектов')
@@ -13,12 +14,14 @@ def test_get_all_obj(print_before_and_after, first_and_latest):
     assert response.status_code == 201, 'Что-то пошло не так'
     print(f'тип данных: {type(response.json())}')
 
+
 @allure.feature('Obj')
 @allure.story('Get obj')
 @allure.title('Получение одного объекта')
 def test_one_obj(print_before_and_after):
     response = requests.get('http://objapi.course.qa-practice.com/object/1')
     print(f'статус-код получения объекта: {response.status_code}')
+
 
 @allure.feature('Obj')
 @allure.story('Create obj')
@@ -41,6 +44,7 @@ def test_new_obj(names, print_before_and_after):
     obj_id = response.json()['id']
     print(f'новый объект создан, id {obj_id}')
 
+
 @allure.feature('Obj')
 @allure.story('Change obj')
 @allure.title('Изменение объекта методом PUT')
@@ -60,6 +64,7 @@ def test_put_obj(print_before_and_after, create_obj):
     assert response.status_code == 200, 'Объект не изменен'
     print(response.status_code)
 
+
 @allure.feature('Obj')
 @allure.story('Change obj')
 @allure.title('Изменение объекта методом PATCH')
@@ -78,6 +83,7 @@ def test_patch_obj(create_obj):
     )
     assert response.status_code == 200, 'Объект не изменен'
     print(response.status_code)
+
 
 @allure.feature('Obj')
 @allure.story('Change obj')  # кмк удаление это тоже изменение объкта
