@@ -2,13 +2,13 @@ import pytest
 
 
 TEST_DATA = [
-              {'name': 'Mikhail', 'data': {'key1': 'value1'}},
-              {'name': 'Olga', 'data': {'key2': 'value2'}}
+            {'name': 'Mikhail', 'data': {'key1': 'value1'}},
+            {'name': 'Olga', 'data': {'key2': 'value2'}}
 ]
 
 NEGATIVE_DATA = [
-              {'name': ['Mikhail'], 'data': {'key1': 'value1'}},
-              {'name': {'Olga': ''}, 'data': {'key2': 'value2'}}
+            {'name': ['Mikhail'], 'data': {'key1': 'value1'}},
+            {'name': {'Olga': ''}, 'data': {'key2': 'value2'}}
 ]
 
 
@@ -27,7 +27,7 @@ def test_new_obj_with_neg_data(create_obj_endpoint, data):
 
 
 PUT_DATA = [
-              {'name': 'Mikhail_UPD_by_PUT', 'data': {'key1': 'value1'}}
+    {'name': 'Mikhail_UPD_by_PUT', 'data': {'key1': 'value1'}}
 ]
 
 
@@ -42,9 +42,7 @@ def test_put_obj(create_obj_endpoint, update_obj_endpoint, data):
     update_obj_endpoint.check_response_status_code()
 
 
-PATCH_DATA = [
-              {'name': 'Mikhail_UPD_by_PATCH'}
-]
+PATCH_DATA = [{'name': 'Mikhail_UPD_by_PATCH'}]
 
 
 @pytest.mark.parametrize('data', PATCH_DATA)
