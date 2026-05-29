@@ -10,4 +10,10 @@ class GetObj(Endpoint):
         self.response = requests.get(
             f'{self.url}/{obj_id}'
         )
+
+        try:
+            self.json = self.response.json()
+        except Exception:
+            self.json = None
+
         return self.response
