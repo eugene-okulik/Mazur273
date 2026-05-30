@@ -6,7 +6,6 @@ from endpoints.delete_obj import DeleteObj
 from endpoints.get_obj import GetObj
 
 
-
 @pytest.fixture
 def create_obj():
     create_endpoint = CreateObj()
@@ -17,12 +16,13 @@ def create_obj():
         'data': {'key1': 'value1'}
     }
 
-    response = create_endpoint.new_obj(payload)
+    create_endpoint.new_obj(payload)
     obj_id = create_endpoint.json['id']
 
     yield obj_id
 
     delete_endpoint.delete_obj(obj_id)
+
 
 @pytest.fixture
 def created_obj_without_cleanup():

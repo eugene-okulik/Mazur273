@@ -7,7 +7,6 @@ from data.data import (
 )
 
 
-@pytest.mark.parametrize('data', TEST_DATA)
 def test_get_obj(create_obj, get_obj_endpoint):
     get_obj_endpoint.get_obj(create_obj)
     get_obj_endpoint.check_response_status_code()
@@ -34,13 +33,3 @@ def test_patch_obj(create_obj, update_obj_patch_endpoint, data):
 def test_delete_obj(created_obj_without_cleanup, delete_obj_endpoint):
     delete_obj_endpoint.delete_obj(created_obj_without_cleanup)
     delete_obj_endpoint.check_response_status_code()
-
-
-def test_get_obj(create_obj_endpoint, get_obj_endpoint):
-    create_obj_endpoint.new_obj({
-        'name': 'Olga',
-        'data': {'key3': 'value3'}
-    })
-    obj_id = create_obj_endpoint.json['id']
-    get_obj_endpoint.get_obj(obj_id)
-    get_obj_endpoint.check_response_status_code()
