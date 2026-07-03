@@ -5,6 +5,7 @@ def test_login(page: Page):
     page.goto('https://the-internet.herokuapp.com/')
     search_field = page.get_by_role('link', name='Form Authentication')
     search_field.click()
+
     username_field = page.get_by_role('textbox', name='username')
     username_field.press_sequentially('wrong_username', delay=50)
     password_field = page.get_by_role('textbox', name='password')

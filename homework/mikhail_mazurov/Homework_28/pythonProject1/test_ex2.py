@@ -12,7 +12,6 @@ def test_login(page: Page):
     gender_checkbox.click()
 
     page.get_by_placeholder('name@example.com').fill('usermailw@mail.ru')
-
     page.get_by_placeholder('Mobile Number').fill('0123456789')
 
     date_of_birth = page.locator('#dateOfBirthInput')
