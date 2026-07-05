@@ -2,17 +2,17 @@ from playwright.sync_api import Page, expect, BrowserContext, Dialog
 from time import sleep
 
 
-def test_arert(page: Page):
-    page.goto('https://www.qa-practice.com/elements/alert/confirm')
-    click_btn = page.locator('#content > a.a-button')
-    click_btn.click()
+def test_alert(page: Page):
 
     def accept(alert: Dialog):
         alert.accept()
 
+    page.on('dialog', accept)
+    page.goto('https://www.qa-practice.com/elements/alert/confirm')
+    click_btn = page.locator('#content > a.a-button')
+    click_btn.click()
     result_text = page.locator('#result-text')
     expect(result_text).to_contain_text('Ok')
-# Тест должен падать, так как Ok и Cancel перепутаны и выполняя alert.accept выбирается Cancel
 
 
 def test_new_tab(page: Page, context: BrowserContext):
