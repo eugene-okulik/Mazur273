@@ -18,9 +18,11 @@ class ProductPage(BasePage):
 
         add_to_cart.click()
 
-        expect(
-            self.page.locator(self.CART_COUNTER).first
-        ).to_have_text('1')
+        counter = self.page.locator(
+            f'{self.CART_COUNTER}:visible'
+        )
+
+        expect(counter).to_have_text('1')
 
     def add_complex_product_to_cart(self):
         add_to_cart = self.page.locator(self.ADD_TO_CART)
@@ -68,5 +70,5 @@ class ProductPage(BasePage):
 
         self.page.wait_for_url('**/web/login')
 
-    def get_current_url(self):
-        return self.page.url
+    def check_current_url(self, expected_url):
+        expect(self.page).to_have_url(expected_url)

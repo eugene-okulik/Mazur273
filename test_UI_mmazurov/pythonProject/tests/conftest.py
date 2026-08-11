@@ -1,37 +1,22 @@
 import pytest
-from playwright.sync_api import sync_playwright
-
-from pages.cart_page2 import CartPage
-from pages.product_page2 import ProductPage
-from pages.shop_page2 import ShopPage
 
 
-@pytest.fixture()
-def page():
-    playwright = sync_playwright().start()
+@pytest.fixture
+def product(page):
+    from pages.product_page2 import ProductPage
 
-    browser = playwright.chromium.launch(
-        headless=False
-    )
-
-    page = browser.new_page()
-
-    yield page
-
-    browser.close()
-    playwright.stop()
+    return ProductPage(page)
 
 
-@pytest.fixture()
+@pytest.fixture
 def cart(page):
+    from pages.cart_page2 import CartPage
+
     return CartPage(page)
 
 
-@pytest.fixture()
+@pytest.fixture
 def shop(page):
+    from pages.shop_page2 import ShopPage
+
     return ShopPage(page)
-
-
-@pytest.fixture()
-def product(page):
-    return ProductPage(page)

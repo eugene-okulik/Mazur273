@@ -15,18 +15,24 @@ class ShopPage(BasePage):
         ).to_have_url(self.CATEGORY_URL)
 
     def change_currency_to_eur(self):
-        self.page.get_by_role(
+        currency_button = self.page.get_by_role(
             'button',
             name='Benelux'
-        ).click()
+        )
+
+        expect(currency_button).to_be_visible()
+        currency_button.click()
 
         eur = self.page.locator(
             '#products_grid a[href*="change_pricelist/3"]'
         ).first
 
         expect(eur).to_be_visible()
-
         eur.click()
+
+        expect(
+            self.page.locator('#products_grid')
+        ).to_contain_text('€')
 
     def currency_is_eur(self):
         expect(
@@ -34,10 +40,13 @@ class ShopPage(BasePage):
         ).to_contain_text('€')
 
     def open_sort_dropdown(self):
-        self.page.get_by_role(
+        sort_button = self.page.get_by_role(
             'button',
             name='Featured'
-        ).click()
+        )
+
+        expect(sort_button).to_be_visible()
+        sort_button.click()
 
     def sort_products(self, sort_name):
         self.open_sort_dropdown()
@@ -49,7 +58,6 @@ class ShopPage(BasePage):
         ).first
 
         expect(option).to_be_visible()
-
         option.click()
 
     def get_sorted_titles(self):

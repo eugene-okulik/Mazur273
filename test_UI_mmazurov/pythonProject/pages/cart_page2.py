@@ -4,17 +4,34 @@ from pages.base_page2 import BasePage
 
 
 class CartPage(BasePage):
-    CART_URL = 'http://testshop.qa-practice.com/shop/cart'
-
     COUNTER = 'sup.my_cart_quantity'
-    PROMO_ERROR = 'div.alert.alert-danger'
+
+    PROMO_INPUT = (
+        'input[name="promo"], '
+        'input[name="coupon"], '
+        'input[placeholder*="Promo"], '
+        'input[placeholder*="promo"]'
+    )
+
+    APPLY_BTN = 'a:has-text("Apply")'
+    ERROR_ALERT = 'div.alert.alert-danger'
+
+    QUANTITY_INPUT = (
+        'input.js_quantity, '
+        'input[name="quantity"], '
+        'input[class*="quantity"]'
+    )
 
     def open(self):
-        self.page.goto(self.CART_URL)
+        self.page.goto(
+            'http://testshop.qa-practice.com/shop/cart'
+        )
+
+        self.page.wait_for_load_state('networkidle')
 
     def get_counter(self):
         counter = self.page.locator(
-            self.COUNTER
+            f'{self.COUNTER}:visible'
         ).first
 
         if not counter.is_visible():
@@ -24,40 +41,39 @@ class CartPage(BasePage):
 
         return int(text) if text else 0
 
+    def check_counter(self, expected_value):
+        counter = self.page.locator(
+            f'{self.COUNTER}:visible'
+        ).first
+
+        expect(counter).to_have_text(str(expected_value))
+
     def wait_counter(self, value):
-        expect(
-            self.page.locator(
-                self.COUNTER
-            ).first
-        ).to_have_text(str(value))
+        counter = self.page.locator(
+            f'{self.COUNTER}:visible'
+        ).first
+
+        expect(counter).to_have_text(str(value))
 
     def product_is_visible(self, product_name):
-        product = self.page.get_by_role(
-            'link',
-            name=product_name,
+        product = self.page.get_by_text(
+            product_name,
             exact=False
         ).first
 
         expect(product).to_be_visible()
 
-        return True
+    def change_quantity(self, quantity):
+        quantity_input = self.page.locator(
+            self.QUANTITY_INPUT
+        ).first
 
-    def increase_quantity(self):
-        add_one = self.page.get_by_role(
-            'link',
-            name='Add one'
-        )
+        expect(quantity_input).to_be_visible()
 
-        expect(add_one).to_be_visible()
+        quantity_input.fill(str(quantity))
+        quantity_input.press('Enter')
 
-        add_one.click()
-
-    def get_product_quantity(self):
-        quantity = self.page.get_by_role(
-            'textbox'
-        ).last
-
-        return int(quantity.input_value())
+        self.page.wait_for_load_state('networkidle')
 
     def apply_promo(self, code):
         promo_input = self.page.get_by_role(
@@ -78,11 +94,11 @@ class CartPage(BasePage):
 
         apply_button.click()
 
-    def get_promo_error(self):
+
+    def check_promo_error(self, expected_text):
         error = self.page.locator(
-            self.PROMO_ERROR
-        )
+            self.ERROR_ALERT
+        ).first
 
         expect(error).to_be_visible()
-
-        return error.inner_text().strip()
+        expect(error).to_have_text(expected_text)
