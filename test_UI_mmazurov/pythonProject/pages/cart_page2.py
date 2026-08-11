@@ -1,5 +1,4 @@
 from playwright.sync_api import expect
-
 from pages.base_page2 import BasePage
 
 
@@ -93,7 +92,6 @@ class CartPage(BasePage):
         expect(apply_button).to_be_visible()
 
         apply_button.click()
-
 
     def check_promo_error(self, expected_text):
         error = self.page.locator(
