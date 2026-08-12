@@ -1,5 +1,4 @@
 from playwright.sync_api import expect
-
 from pages.base_page2 import BasePage
 
 
@@ -60,13 +59,15 @@ class ShopPage(BasePage):
         expect(option).to_be_visible()
         option.click()
 
-    def get_sorted_titles(self):
+    def check_products_sorted_by_name(self):
         titles = self.page.locator(
             '.o_wsale_products_item_title'
         ).all_inner_texts()
 
-        return [
+        titles = [
             title.strip().lower()
             for title in titles
             if title.strip()
         ]
+
+        assert titles == sorted(titles)

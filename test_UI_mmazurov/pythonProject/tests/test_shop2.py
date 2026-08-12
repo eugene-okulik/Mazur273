@@ -17,6 +17,4 @@ def test_sort_by_name(shop):
 
     shop.sort_products('Name (A-Z)')
 
-    titles = shop.get_sorted_titles()
-
-    assert titles == sorted(titles)
+    shop.check_products_sorted_by_name()
